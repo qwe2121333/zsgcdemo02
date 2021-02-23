@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="./bt/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./bt/css/bootstrap-theme.min.css"/>
+    <script tyoe="text/javascript" src="./bt/js/jquery.js"></script>
+    <script type="text/javascript" src="./bt/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/getDate.js"></script>
+</head>
+<body>
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="inputUserName" class="col-sm-2 control-label">UserName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputUserName" placeholder="UserName">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword1" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword2" class="col-sm-2 control-label">Confirm password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword2" placeholder="Confirm Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="sub" class="btn btn-success form-control" type="submit" >注册</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $("#sub").click(function (){
+        //alert("测试")
+        //取数
+        var userName = $("#inputUserName").val();
+        var passWord = $("#inputPassword1").val();
+        var passWord2 = $("#inputPassword2").val();
+        //校验 user is null
+        if(userName.length == 0) {
+            alert("用户名不能为空")
+            return;//为空将中止程序
+        }
+        //校验 password is null
+        if(passWord.length == 0) {
+            alert("密码不能为空")
+            return;//为空将中止程序
+        }
+        //校验密码是否一致
+        if(passWord2 != passWord) {
+            alert("两次密码输入不一致")
+            return;//中止程序
+        }
+        //封装数据，并提交给后端接口（封装成json数据）
+        var user ={
+            "username":userName,
+            "password":passWord,
+        }
+        //将实体类转换成json
+        var userJson = JSON.stringify(user)
+        //使用Ajax提交给后端接口
+        $.post({
+            url:"user/save",
+            data: userJson,//userJson赋值给data
+            contentType: "application/json",
+            success:function (data){
+                alert(data)
+            }
+        });
+    })
+</script>
+
+
+
+
+
+
+

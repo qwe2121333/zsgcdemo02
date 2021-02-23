@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzs.boot.user.dao.UserDao">
+    <select id="getAll" parameterType="com.hzs.boot.user.entity.UserEntity"
+            resultType="java.util.Map">
+        SELECT * FROM user
+    </select>
+
+    <delete id="delById" parameterType="java.lang.Integer">
+        delete from user where id = ${id}
+    </delete>
+    <!--#防止sql注入 $不能-->
+    <insert id="Register" parameterType="com.hzs.boot.user.entity.UserEntity">
+        INSERT INTO `zsgcdemo`.`user` ( `id`, `username`, `password`, `createtime`, `status` )
+        VALUES
+        ( null,#{username},#{password},#{createtime},#{status});
+    </insert>
+    <select id="getUserById2" parameterType="java.lang.Integer" resultType="com.hzs.boot.user.entity.UserEntity">
+        select * from user where id = ${id}
+    </select>
+    <!--根据id查询用户数据-->
+    <select id="getUserById" parameterType="java.lang.Integer" resultType="com.hzs.boot.user.entity.UserEntity">
+        select * from user where id = ${id}
+    </select>
+    <!--根据id修改用户数据 没有返回值-->
+    <update id="updateUserById" parameterType="com.hzs.boot.user.entity.UserEntity">
+        UPDATE `zsgcdemo`.`user`
+            SET
+                `username` = '#{username}',
+                `password` = '#{password}'
+            WHERE
+	            (`id` = ${id});
+    </update>
+
+</mapper>

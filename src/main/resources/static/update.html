@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改</title>
+    <link rel="stylesheet" href="./bt/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./bt/css/bootstrap-theme.min.css"/>
+    <script tyoe="text/javascript" src="./bt/js/jquery.js"></script>
+    <script type="text/javascript" src="./bt/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        //修改
+        $(function (){
+            //var id = GetQueryString("id")
+            console.log(id);
+            $.post({
+                url:"user/getUserById?id="+id,
+                data:{id:id},
+                success: function (data){
+                    console.log(data)
+                    $("#idX").val(data.id);
+                    $("#usernameA").val(data.username);
+                    $("#passwordB").val(data.password);
+                    $("#createtimeC").val(data.createtime);
+                    $("#statusD").val(data.status);
+                }
+            })
+        });
+        /*function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }*/
+    </script>
+</head>
+<body>
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="id" class="col-sm-2 control-label">ID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="idX" placeholder="ID">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="usernameA" class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="usernameA" placeholder="用户名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passwordB" class="col-sm-2 control-label">密码</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="passwordB" placeholder="密码">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="createtimeC" class="col-sm-2 control-label">创建时间</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="createtimeC" placeholder="创建时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="statusD" class="col-sm-2 control-label">状态</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="statusD" placeholder="状态">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="sub" class="btn btn-success form-control" type="submit" >修改</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+//修改提交===========================================
+    $("#sub").click(function (){
+        //取数{
+        var id = $("#idX").val();
+        var usernameA = $("#usernameA").val();
+        var passwordB = $("#passwordB").val();
+        var createtimeC = $("#createtimeC").val();
+        var statusD = $("#statusD").val();
+        //校验 user is null
+        if(UserName.length == 0) {
+            alert("用户名不能为空")
+            return;//为空将中止程序
+        }
+        //校验 password is null
+        if(PassWord.length == 0) {
+            alert("密码不能为空")
+            return;//为空将中止程序
+        }
+        //校验密码是否一致
+        if(PassWord2 != PassWord) {
+            alert("两次密码输入不一致")
+            return;//中止程序
+        }
+        //封装数据，并提交给后端接口（封装成json数据）
+        var user ={
+            "id" : id,
+            "username" : usernameA,
+            "password" : passwordB,
+            "createtime" : createtimeC,
+            "status" : statusD,
+        }
+        //将实体类转换成json
+        var userJson = JSON.stringify(user)
+        //使用Ajax提交给后端接口
+        $.post({
+            url:"user/updateUserById",
+            data: userJson,//userJson赋值给data
+            contentType: "application/json",
+            success:function (data){
+                alert(data)
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
